@@ -146,10 +146,6 @@ endfunction
 nnoremap <leader>sr :call ProjectReplace()<CR>
 nnoremap <leader>sR :call ProjectDoReplace()<CR>
 
-" Mappings
-nnoremap <leader>sr :call ProjectReplace()<CR>
-nnoremap <leader>ry :call ProjectDoReplace()<CR>
-
 " Generate ctags (requires `ctags -R` available)
 nnoremap <leader>t :!ctags -R .<CR><CR>
 
@@ -157,6 +153,9 @@ nnoremap <leader>t :!ctags -R .<CR><CR>
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
+
+" Undotree
+nnoremap <leader>u :UndotreeToggle<CR>
 
 " ========== Kitty Integration ==========
 " Enable bracketed paste and proper clipboard integration
