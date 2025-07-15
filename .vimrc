@@ -8,6 +8,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Git integration
 Plug 'tpope/vim-fugitive'
 
+" For better diff and staging support
+Plug 'junegunn/gv.vim'
+
 " Ruby and Rails
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
