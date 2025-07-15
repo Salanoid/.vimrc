@@ -44,6 +44,9 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'uiiaoo/java-syntax.vim'
 
+" Supertab
+Plug 'ervandew/supertab'
+
 " Theme
 Plug 'joshdick/onedark.vim'
 
