@@ -47,6 +47,9 @@ Plug 'uiiaoo/java-syntax.vim'
 " Supertab
 Plug 'ervandew/supertab'
 
+" Visual undo tree
+Plug 'mbbill/undotree'          
+
 " Theme
 Plug 'joshdick/onedark.vim'
 
