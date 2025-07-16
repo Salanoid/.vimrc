@@ -11,6 +11,9 @@ Plug 'tpope/vim-fugitive'
 " For better diff and staging support
 Plug 'junegunn/gv.vim'
 
+" Git show changed lines
+Plug 'airblade/vim-gitgutter'
+
 " Ruby and Rails
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
@@ -48,7 +51,10 @@ Plug 'uiiaoo/java-syntax.vim'
 Plug 'ervandew/supertab'
 
 " Visual undo tree
-Plug 'mbbill/undotree'          
+Plug 'mbbill/undotree'
+
+" Tagbar display ctags in a window
+Plug 'preservim/tagbar'
 
 " Theme
 Plug 'joshdick/onedark.vim'
@@ -60,6 +66,9 @@ syntax on
 filetype plugin indent on
 set autoindent
 set number
+set ruler
+set showcmd
+set laststatus=2
 set relativenumber
 set hlsearch
 set incsearch
@@ -80,6 +89,10 @@ set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitigno
 set nowritebackup
 set nowrap
 set list listchars=tab:»·,trail:·,nbsp:·
+set diffopt+=vertical
+set tags=./tags;,tags;
+set complete=.,w,b,u,t
+set completeopt=menuone,noinsert,noselect
 
 " ========== Leader and Remaps ==========
 let mapleader = " "
@@ -98,6 +111,9 @@ nnoremap <leader>ev :split $MYVIMRC<cr>
 
 " Load vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Toggle tagbar
+nnoremap <leader>tb :TagbarToggle<CR>
 
 " Open NERDTree
 nnoremap <leader>n :NERDTreeToggle<CR>
@@ -215,7 +231,8 @@ if has('termguicolors')
 endif
 colorscheme onedark
 
-" This should save and restore sessions, keep this at the end of your config
+" This should save and restor session, keep this at the end of your config
+
 " Session save/restore in Git repos
 function! SaveSession()
     let gitdir = finddir('.git', '.;')
@@ -238,5 +255,6 @@ function! RestoreSession()
 endfunction
 
 set sessionoptions=curdir,folds,help,tabpages,winsize,globals
+autocmd BufWritePost *.rb,*.js,*.py,*.c,*.cpp silent! !ctags -R .
 autocmd VimLeave * call SaveSession()
 autocmd VimEnter * nested call RestoreSession()
