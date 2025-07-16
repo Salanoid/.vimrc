@@ -93,6 +93,12 @@ nnoremap <leader>q :q<CR>
 " Replace word under cursor
 nnoremap <leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
+" Edit vimrc
+nnoremap <leader>ev :split $MYVIMRC<cr>
+
+" Load vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
 " Open NERDTree
 nnoremap <leader>n :NERDTreeToggle<CR>
 
@@ -174,6 +180,8 @@ let g:ctrlp_cmd = 'CtrlP'
 
 " NerdTree
 let g:NERDTreeShowHidden=1
+let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeMinimalUI=1
 
 " Vim-Test
 let test#strategy = "neovim"
@@ -206,3 +214,29 @@ if has('termguicolors')
   set termguicolors
 endif
 colorscheme onedark
+
+" This should save and restore sessions, keep this at the end of your config
+" Session save/restore in Git repos
+function! SaveSession()
+    let gitdir = finddir('.git', '.;')
+    if empty(gitdir) | return | endif
+    let session = gitdir . '/session.vim'
+    execute 'mksession! ' . session
+endfunction
+
+function! RestoreSession()
+    if filereadable(getcwd() . '/.git/session.vim')
+        execute 'so ' . getcwd() . '/.git/session.vim'
+        if bufexists(1)
+            for bufnum in range(1, bufnr('$'))
+                if bufwinnr(bufnum) == -1
+                    silent! execute 'sbuffer ' . bufnum
+                endif
+            endfor
+        endif
+    endif
+endfunction
+
+set sessionoptions=curdir,folds,help,tabpages,winsize,globals
+autocmd VimLeave * call SaveSession()
+autocmd VimEnter * nested call RestoreSession()
